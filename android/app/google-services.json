@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "232455228450",
+    "project_id": "stumble-chat-c85e9",
+    "storage_bucket": "stumble-chat-c85e9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232455228450:android:4f19e789e7054771a08e7b",
+        "android_client_info": {
+          "package_name": "mk.ukim.finki.mis.stumble"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232455228450-j2enoq1n73kdjjea7fjpsbddtan2s8vd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnLm6iRxTcv5GsCRot8DMkXhso1LK5ps8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "232455228450-j2enoq1n73kdjjea7fjpsbddtan2s8vd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
