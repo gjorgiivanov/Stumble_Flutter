@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Stumble',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        primaryColor: Colors.cyan,
+        primaryColor: Colors.lightBlueAccent[200],
       ),
       home: const MyHomePage(),
     );
@@ -37,8 +37,8 @@ class MyHomePage extends StatelessWidget {
         TextButton(
           style: style,
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const ChatScreen()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => ChatScreen()));
           },
           child: const Text('Chat'),
         )
