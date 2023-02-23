@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +18,13 @@ class _NewMessageState extends State<NewMessage> {
     FocusScope.of(context).unfocus();
     FirebaseFirestore.instance
         .collection('chats/so5264bjiTtfTbdT1TMr/messages')
-        .add({'text': _enteredMessage, 'createdAt': Timestamp.now()});
+        .add({
+      'text': _enteredMessage,
+      'createdAt': Timestamp.now(),
+      'userId': (5 + Random().nextInt(2)),
+      //send a message from a random user with id of 5 or 6
+    });
+    _enteredMessage = '';
     _controller.clear();
   }
 
