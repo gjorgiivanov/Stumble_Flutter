@@ -14,7 +14,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "232455228450-j2enoq1n73kdjjea7fjpsbddtan2s8vd.apps.googleusercontent.com",
+          "client_id": "232455228450-733dbm41p3155444h925s3qduoi2me3d.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,7 +27,44 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "232455228450-j2enoq1n73kdjjea7fjpsbddtan2s8vd.apps.googleusercontent.com",
+              "client_id": "232455228450-733dbm41p3155444h925s3qduoi2me3d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232455228450:android:facc766434212e2fa08e7b",
+        "android_client_info": {
+          "package_name": "mk.ukim.finki.mis.stumble.googleAuth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232455228450-06unnbdqvio4rjv13o39cl1dhpb3o8nq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mk.ukim.finki.mis.stumble.googleAuth",
+            "certificate_hash": "de5d384204904caa9f87a4791c7957f5ea54d2fc"
+          }
+        },
+        {
+          "client_id": "232455228450-733dbm41p3155444h925s3qduoi2me3d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnLm6iRxTcv5GsCRot8DMkXhso1LK5ps8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "232455228450-733dbm41p3155444h925s3qduoi2me3d.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
