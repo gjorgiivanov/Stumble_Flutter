@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:geolocator/geolocator.dart';
@@ -6,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:stumble/screens/chat_screen.dart';
 
 import 'services/locationService.dart';
-import 'hooks/fetchUserDetails.dart';
-import 'hooks/locate.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
