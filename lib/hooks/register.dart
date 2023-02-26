@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-Future<void> registerUser(
+Future<void> register(
     String firstName,
     String lastName,
     File image,
