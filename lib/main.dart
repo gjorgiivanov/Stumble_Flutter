@@ -63,14 +63,23 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: Container(
-        child: ElevatedButton(
-          onPressed: () {
-            getCurrentPosition(context).then((position) => setState(() {
-                  _currentPosition = position;
-                }));
-          },
-          child: Text("Lat: ${_currentPosition?.latitude.toString() ?? ''} "
-              "Lon: ${_currentPosition?.longitude.toString() ?? ''}"),
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                getCurrentPosition(context).then((position) => setState(() {
+                      _currentPosition = position;
+                    }));
+              },
+              child: Text("Lat: ${_currentPosition?.latitude.toString() ?? ''} "
+                  "Lon: ${_currentPosition?.longitude.toString() ?? ''}"),
+            ),
+            Text(
+              'List of people nearby',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+            )
+          ],
         ),
       ),
     );
