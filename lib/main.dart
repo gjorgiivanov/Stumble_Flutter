@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:stumble/screens/chat_list_screen.dart';
 import 'package:stumble/screens/chat_screen.dart';
 
 Future<void> main() async {
@@ -38,7 +39,7 @@ class MyHomePage extends StatelessWidget {
           style: style,
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => ChatScreen()));
+                context, MaterialPageRoute(builder: (context) => ChatListScreen()));
           },
           child: const Text('Chat'),
         )
