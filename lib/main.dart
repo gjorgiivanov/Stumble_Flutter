@@ -1,7 +1,6 @@
-
 import 'package:firebase_core/firebase_core.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:stumble/screens/chat_screen.dart';
 
 import 'services/locationService.dart';
@@ -17,11 +16,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = ThemeData();
+
     return MaterialApp(
       title: 'Stumble',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        primaryColor: Colors.lightBlueAccent[200],
+      theme: theme.copyWith(
+        primaryColor: Colors.lightBlueAccent[100],
+        backgroundColor: Colors.blue,
+        colorScheme: theme.colorScheme.copyWith(
+          secondary: Colors.white,
+          brightness: Brightness.dark,
+        ),
       ),
       home: const MyHomePage(),
     );
@@ -44,8 +49,9 @@ class _MyHomePageState extends State<MyHomePage> {
       foregroundColor: Theme.of(context).colorScheme.onPrimary,
     );
     return Scaffold(
-        appBar:
-            AppBar(title: const Text('Stumble Home Page'), actions: <Widget>[
+      appBar: AppBar(
+        title: const Text('Stumble Home Page'),
+        actions: <Widget>[
           TextButton(
             style: style,
             onPressed: () {
@@ -54,9 +60,10 @@ class _MyHomePageState extends State<MyHomePage> {
             },
             child: const Text('Chat'),
           )
-        ]),
-        body: Container(
-            child: ElevatedButton(
+        ],
+      ),
+      body: Container(
+        child: ElevatedButton(
           onPressed: () {
             getCurrentPosition(context).then((position) => setState(() {
                   _currentPosition = position;
@@ -64,6 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
           },
           child: Text("Lat: ${_currentPosition?.latitude.toString() ?? ''} "
               "Lon: ${_currentPosition?.longitude.toString() ?? ''}"),
-        )));
+        ),
+      ),
+    );
   }
 }
