@@ -7,6 +7,7 @@ final me = User(
   image: "https://stumble-api.herokuapp.com/images/image5.jpeg",
   lat: 10,
   lon: 10,
+  email:''
 );
 
 final other = User(
@@ -16,4 +17,5 @@ final other = User(
   image: "https://stumble-api.herokuapp.com/images/image6.jpeg",
   lat: 10,
   lon: 10,
+  email:''
 );

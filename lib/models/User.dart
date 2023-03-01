@@ -5,6 +5,7 @@ class User {
   final String image;
   final double lat;
   final double lon;
+  final String email;
 
   User(
       {required this.id,
@@ -12,15 +13,17 @@ class User {
       required this.lastName,
       required this.image,
       required this.lat,
-      required this.lon});
+      required this.lon,
+      required this.email});
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
         id: json['id'],
         firstName: json['firstName'],
         lastName: json['lastName'],
-        image: json['image'],
-        lat: json['lat'],
-        lon: json['lon']);
+        image: json['imagePath'],
+        email: json['email'],
+        lat: json['lat'] ?? '',
+        lon: json['lon'] ?? '');
   }
 }

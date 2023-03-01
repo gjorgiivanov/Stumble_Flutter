@@ -27,9 +27,9 @@ class UserDetails {
         email: json['email'],
         description: json['description'],
         gender: json['gender'],
-        instagramAccount: json['instagramAccount'],
-        facebookAccount: json['facebookAccount'],
-        linkedinAccount: json['linkedinAccount'],
-        image: json['image']);
+        instagramAccount: json['instagramAccount'] ?? '',
+        facebookAccount: json['facebookAccount'] ?? '',
+        linkedinAccount: json['linkedinAccount'] ?? '',
+        image: json['imagePath']);
   }
 }
