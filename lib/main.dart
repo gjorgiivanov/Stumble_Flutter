@@ -1,8 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:stumble/screens/auth_screen.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
+import 'package:stumble/providers/auth.dart';
+import 'package:stumble/providers/users.dart';
+import 'package:stumble/screens/auth_screen.dart';
 import 'package:stumble/screens/chat_screen.dart';
+import 'package:stumble/screens/splash_screen.dart';
 
 import 'services/locationService.dart';
 
@@ -19,17 +23,41 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = ThemeData();
 
-    return MaterialApp(
-      title: 'Stumble',
-      theme: theme.copyWith(
-        primaryColor: Colors.lightBlueAccent[100],
-        backgroundColor: Colors.blue,
-        colorScheme: theme.colorScheme.copyWith(
-          secondary: Colors.white,
-          brightness: Brightness.dark,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: Auth(),
+        ),
+        ChangeNotifierProxyProvider<Auth, Users>(
+          create: (_) => Users(null),
+          update: (ctx, auth, pev) => Users(
+            auth.token,
+          ),
+        ),
+      ],
+      child: Consumer<Auth>(
+        builder: (ctx, auth, _) => MaterialApp(
+          title: 'Stumble',
+          theme: theme.copyWith(
+            primaryColor: Colors.lightBlueAccent[100],
+            backgroundColor: Colors.blue,
+            colorScheme: theme.colorScheme.copyWith(
+              primary: Colors.blue,
+              secondary: Colors.white,
+            ),
+          ),
+          home: auth.isAuth
+              ? MyHomePage()
+              : FutureBuilder(
+                  future: auth.autoLogin(),
+                  builder: (ctx, authResultSnapshot) =>
+                      authResultSnapshot.connectionState ==
+                              ConnectionState.waiting
+                          ? SplashScreen()
+                          : AuthScreen(),
+                ),
         ),
       ),
-      home: const AuthScreen(),
     );
   }
 }
@@ -60,7 +88,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   MaterialPageRoute(builder: (context) => ChatScreen()));
             },
             child: const Text('Chat'),
-          )
+          ),
+          TextButton.icon(
+            onPressed: () {
+              Provider.of<Auth>(context, listen: false).logout();
+            },
+            icon: const Icon(Icons.exit_to_app),
+            label: const Text("Logout"),
+          ),
         ],
       ),
       body: Container(

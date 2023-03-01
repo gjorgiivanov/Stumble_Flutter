@@ -3,23 +3,19 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 Future<void> register(
-    String firstName,
-    String lastName,
-    File image,
-    String gender,
-    String email,
-    String password,
-    String description,
-    String instagramAccount,
-    String facebookAccount,
-    String linkedinAccount,
-    String token,
-    ) async {
+  String firstName,
+  String lastName,
+  File image,
+  String gender,
+  String email,
+  String password,
+  String description,
+  String instagramAccount,
+  String facebookAccount,
+  String linkedinAccount,
+) async {
   final url = Uri.parse('http://stumble-api.herokuapp.com/register');
   final request = http.MultipartRequest('POST', url);
-
-  // Add authorization header
-  request.headers['Authorization'] = 'Bearer $token';
 
   // Add fields
   request.fields['firstName'] = firstName;
@@ -40,9 +36,7 @@ Future<void> register(
       'image',
       stream,
       length,
-      filename: image.path
-          .split('/')
-          .last,
+      filename: image.path.split('/').last,
     );
     request.files.add(multipartFile);
   }

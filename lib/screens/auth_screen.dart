@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../data/constants.dart';
+import '../providers/auth.dart';
 import '../widgets/auth/auth_form.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -14,22 +17,39 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   var _isLoading = false;
 
-  void _submitAuthForm(
+  Future<void> _submitAuthForm(
     String email,
     String password,
     String firstName,
     String lastName,
     File? image,
+    Gender? gender,
     bool isLogin,
-  ) {
+  ) async {
     try {
       setState(() {
         _isLoading = true;
       });
       if (isLogin) {
-        //todo: login a user
+        await Provider.of<Auth>(context, listen: false).login(
+          email,
+          password,
+        );
       } else {
-        //todo: create new user
+        if (image != null && gender != null) {
+          await Provider.of<Auth>(context, listen: false).register(
+            firstName,
+            lastName,
+            image!,
+            gender.toString(),
+            email,
+            password,
+            '',
+            '',
+            '',
+            '',
+          );
+        }
       }
       //until login logic implemented
       setState(() {
