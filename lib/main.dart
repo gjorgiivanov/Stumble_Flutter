@@ -38,14 +38,14 @@ class MyApp extends StatelessWidget {
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(
           title: 'Stumble',
-          theme: theme.copyWith(
-            primaryColor: Colors.lightBlueAccent[100],
-            backgroundColor: Colors.blue,
-            colorScheme: theme.colorScheme.copyWith(
-              primary: Colors.blue,
-              secondary: Colors.white,
-            ),
-          ),
+          // theme: theme.copyWith(
+          //   primaryColor: Colors.lightBlueAccent[100],
+          //   backgroundColor: Colors.blue,
+          //   colorScheme: theme.colorScheme.copyWith(
+          //     primary: Colors.blue,
+          //     secondary: Colors.white,
+          //   ),
+          // ),
           home: auth.isAuth
               ? MyHomePage()
               : FutureBuilder(
@@ -94,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Provider.of<Auth>(context, listen: false).logout();
             },
             icon: const Icon(Icons.exit_to_app),
-            label: const Text("Logout"),
+            label: const Text("Logout", style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
