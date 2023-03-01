@@ -1,12 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:stumble/screens/chat_list_screen.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:stumble/providers/auth.dart';
 import 'package:stumble/providers/users.dart';
 import 'package:stumble/screens/auth_screen.dart';
-import 'package:stumble/screens/chat_screen.dart';
+import 'package:stumble/screens/chat_list_screen.dart';
 import 'package:stumble/screens/splash_screen.dart';
 
 import 'services/locationService.dart';
@@ -39,14 +38,6 @@ class MyApp extends StatelessWidget {
       child: Consumer<Auth>(
         builder: (ctx, auth, _) => MaterialApp(
           title: 'Stumble',
-          // theme: theme.copyWith(
-          //   primaryColor: Colors.lightBlueAccent[100],
-          //   backgroundColor: Colors.blue,
-          //   colorScheme: theme.colorScheme.copyWith(
-          //     primary: Colors.blue,
-          //     secondary: Colors.white,
-          //   ),
-          // ),
           home: auth.isAuth
               ? MyHomePage()
               : FutureBuilder(
@@ -87,20 +78,22 @@ class _MyHomePageState extends State<MyHomePage> {
               TextButton.icon(
                 style: style,
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ChatScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ChatListScreen()));
                 },
                 icon: const Icon(Icons.chat),
                 label: const Text('Chat'),
               ),
               const SizedBox(width: 1), // add spacing between the buttons
               TextButton.icon(
-
                 onPressed: () {
                   Provider.of<Auth>(context, listen: false).logout();
                 },
                 icon: const Icon(Icons.exit_to_app, color: Colors.white),
-                label: const Text("Logout", style: TextStyle(color: Colors.white)),
+                label:
+                    const Text("Logout", style: TextStyle(color: Colors.white)),
               ),
             ],
           ),
@@ -110,11 +103,13 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           ElevatedButton(
             onPressed: () {
-              getCurrentPosition(context).then((position) => setState(() {
-                _currentPosition = position;
-              }));
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ChatListScreen()));
+              getCurrentPosition(context).then(
+                (position) => setState(
+                  () {
+                    _currentPosition = position;
+                  },
+                ),
+              );
             },
             child: Text("Lat: ${_currentPosition?.latitude.toString() ?? ''} "
                 "Lon: ${_currentPosition?.longitude.toString() ?? ''}"),
