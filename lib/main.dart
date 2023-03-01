@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:stumble/screens/auth_screen.dart';
 import 'package:stumble/screens/chat_screen.dart';
 
 Future<void> main() async {
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         primaryColor: Colors.lightBlueAccent[200],
       ),
-      home: const MyHomePage(),
+      home: const AuthScreen(),
     );
   }
 }
