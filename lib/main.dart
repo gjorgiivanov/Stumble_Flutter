@@ -81,42 +81,29 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text('Stumble Home Page'),
         actions: <Widget>[
-          TextButton(
-            style: style,
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ChatScreen()));
-            },
-            child: const Text('Chat'),
-          ),
-          TextButton.icon(
-            onPressed: () {
-              Provider.of<Auth>(context, listen: false).logout();
-            },
-            icon: const Icon(Icons.exit_to_app),
-            label: const Text("Logout", style: TextStyle(color: Colors.white)),
+          Row(
+            children: <Widget>[
+              TextButton.icon(
+                style: style,
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ChatScreen()));
+                },
+                icon: const Icon(Icons.chat),
+                label: const Text('Chat'),
+              ),
+              const SizedBox(width: 1), // add spacing between the buttons
+              TextButton.icon(
+
+                onPressed: () {
+                  Provider.of<Auth>(context, listen: false).logout();
+                },
+                icon: const Icon(Icons.exit_to_app, color: Colors.white),
+                label: const Text("Logout", style: TextStyle(color: Colors.white)),
+              ),
+            ],
           ),
         ],
-      ),
-      body: Container(
-        child: Column(
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                getCurrentPosition(context).then((position) => setState(() {
-                      _currentPosition = position;
-                    }));
-              },
-              child: Text("Lat: ${_currentPosition?.latitude.toString() ?? ''} "
-                  "Lon: ${_currentPosition?.longitude.toString() ?? ''}"),
-            ),
-            Text(
-              'List of people nearby',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-            )
-          ],
-        ),
       ),
     );
   }
