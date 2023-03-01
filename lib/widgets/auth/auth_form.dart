@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:stumble/pickers/user_image_picker.dart';
 
+import '../../data/constants.dart';
+
 class AuthForm extends StatefulWidget {
   const AuthForm(this.submitFn, this.isLoading, {Key? key}) : super(key: key);
 
@@ -14,6 +16,7 @@ class AuthForm extends StatefulWidget {
     String firstName,
     String lastName,
     File? image,
+    Gender? _selectedGender,
     bool isLogin,
   ) submitFn;
 
@@ -29,6 +32,7 @@ class _AuthFormState extends State<AuthForm> {
   String _userLastName = '';
   String _userPassword = '';
   File? _userImageFile;
+  Gender? _selectedGender;
   final _passwordController = TextEditingController();
 
   void _pickedImage(File image) {
@@ -48,6 +52,15 @@ class _AuthFormState extends State<AuthForm> {
       );
       return;
     }
+    if (_selectedGender == null && !_isLogin) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text("Please pick a gender"),
+          backgroundColor: Theme.of(context).errorColor,
+        ),
+      );
+      return;
+    }
 
     if (isValid != null && isValid) {
       _formKey.currentState!.save();
@@ -58,6 +71,7 @@ class _AuthFormState extends State<AuthForm> {
         _userFirstName.trim(),
         _userLastName.trim(),
         _userImageFile,
+        _selectedGender,
         _isLogin,
       );
     }
@@ -146,16 +160,16 @@ class _AuthFormState extends State<AuthForm> {
                     decoration: const InputDecoration(labelText: 'Password'),
                     obscureText: true,
                     controller: _passwordController,
-                    validator: (value) {
-                      if (value == null ||
-                          value!.isEmpty ||
-                          !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-                              .hasMatch(value!)) {
-                        return ("Your password should contain at least:\n"
-                            " one upper case\n one lower case\n one digit\n one special character\n 8 characters in length");
-                      }
-                      return null;
-                    },
+                    // validator: (value) {
+                    //   if (value == null ||
+                    //       value!.isEmpty ||
+                    //       !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                    //           .hasMatch(value!)) {
+                    //     return ("Your password should contain at least:\n"
+                    //         " one upper case\n one lower case\n one digit\n one special character\n 8 characters in length");
+                    //   }
+                    //   return null;
+                    // },
                     onSaved: (value) {
                       _userPassword = value!;
                     },
@@ -170,6 +184,22 @@ class _AuthFormState extends State<AuthForm> {
                           return 'Passwords do not match!';
                         }
                       },
+                    ),
+                  if (!_isLogin) Text('Select an item:'),
+                  if (!_isLogin)
+                    DropdownButtonFormField<Gender>(
+                      value: _selectedGender,
+                      onChanged: (newValue) {
+                        setState(() {
+                          _selectedGender = newValue!;
+                        });
+                      },
+                      items: Gender.values.map((Gender value) {
+                        return DropdownMenuItem<Gender>(
+                          value: value,
+                          child: Text(value.toString().split('.').last),
+                        );
+                      }).toList(),
                     ),
                   const SizedBox(
                     height: 12,

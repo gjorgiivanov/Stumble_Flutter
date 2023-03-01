@@ -45,6 +45,7 @@ dependencies:
   async: ^2.9.0
   geolocator: ^9.0.2
   geocoding: ^2.0.5
+  shared_preferences: ^2.0.18
   crypto: ^3.0.2
 
 dev_dependencies:
