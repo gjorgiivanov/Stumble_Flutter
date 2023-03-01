@@ -1,8 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mk.ukim.finki.mis.stumble">
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
    <application
-        android:label="stumble"
+       android:enableOnBackInvokedCallback="true"
+
+       android:label="stumble"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -4,10 +4,10 @@ final me = User(
   id: 5,
   firstName: "David",
   lastName: "Jones",
-  image: "http://stumble-api.herokuapp.com/images/tomegavazov@gmail.jpg",
+  image: "http://stumble-api.herokuapp.com/images/tomegavazov23@gmail.jpg",
   lat: 10,
   lon: 10,
-  email:''
+  email:'23'
 );
 
 final other = User(
@@ -17,5 +17,5 @@ final other = User(
   image: "http://stumble-api.herokuapp.com/images/tomegavazov@gmail.jpg",
   lat: 10,
   lon: 10,
-  email:''
+  email:'23'
 );

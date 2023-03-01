@@ -14,7 +14,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +30,13 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
         ),
       ),
-      home: const AuthScreen(),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+  const MyHomePage({Key? key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -51,7 +51,6 @@ class _MyHomePageState extends State<MyHomePage> {
       foregroundColor: Theme.of(context).colorScheme.onPrimary,
     );
     return Scaffold(
-
       appBar: AppBar(
         title: const Text('Stumble Home Page'),
         actions: <Widget>[
@@ -65,25 +64,23 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-      body: Container(
-        child: Column(
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                getCurrentPosition(context).then((position) => setState(() {
-                      _currentPosition = position;
-                    }));
-              },
-              child: Text("Lat: ${_currentPosition?.latitude.toString() ?? ''} "
-                  "Lon: ${_currentPosition?.longitude.toString() ?? ''}"),
-            ),
-            Text(
-              'List of people nearby',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-            )
-          ],
-        ),
+      body: Column(
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              getCurrentPosition(context).then((position) => setState(() {
+                    _currentPosition = position;
+                  }));
+            },
+            child: Text("Lat: ${_currentPosition?.latitude.toString() ?? ''} "
+                "Lon: ${_currentPosition?.longitude.toString() ?? ''}"),
+          ),
+          const Text(
+            'List of people nearby',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+          )
+        ],
       ),
     );
   }

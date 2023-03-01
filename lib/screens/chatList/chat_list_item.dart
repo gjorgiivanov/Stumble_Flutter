@@ -66,7 +66,14 @@ class _ChatListItemState extends State<ChatListItem> {
       trailing: IconButton(
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => const ChatScreen()));
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ChatScreen(
+                email1: "tom@gmail.com",
+                email2: "tom2@gmail.com",
+              ),
+            ),
+          );
         },
         icon: Icon(Icons.send),
       ),
