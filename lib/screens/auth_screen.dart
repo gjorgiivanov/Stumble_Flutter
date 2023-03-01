@@ -19,7 +19,7 @@ class _AuthScreenState extends State<AuthScreen> {
     String password,
     String firstName,
     String lastName,
-    File image,
+    File? image,
     bool isLogin,
   ) {
     try {
