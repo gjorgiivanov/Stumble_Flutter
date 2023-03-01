@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-Future<void> register(
+import '../data/constants.dart';
+
+Future<http.StreamedResponse> register(
   String firstName,
   String lastName,
   File image,
-  String gender,
+  Gender gender,
   String email,
   String password,
   String description,
@@ -20,7 +22,7 @@ Future<void> register(
   // Add fields
   request.fields['firstName'] = firstName;
   request.fields['lastName'] = lastName;
-  request.fields['gender'] = gender;
+  request.fields['gender'] = gender.toString().split('.').last;
   request.fields['email'] = email;
   request.fields['password'] = password;
   request.fields['description'] = description;
@@ -41,6 +43,5 @@ Future<void> register(
     request.files.add(multipartFile);
   }
 
-  final response = await request.send();
-  print(response);
+  return await request.send();
 }

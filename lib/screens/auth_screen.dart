@@ -41,7 +41,7 @@ class _AuthScreenState extends State<AuthScreen> {
             firstName,
             lastName,
             image!,
-            gender.toString(),
+            gender,
             email,
             password,
             '',

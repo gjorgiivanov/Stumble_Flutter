@@ -7,6 +7,8 @@ import 'package:stumble/hooks/login.dart' as login_hook;
 import 'package:stumble/hooks/register.dart' as register_hook;
 import 'package:stumble/models/UserDetails.dart';
 
+import '../data/constants.dart';
+
 class Auth with ChangeNotifier {
   String? _token;
   String? _userId;
@@ -23,7 +25,7 @@ class Auth with ChangeNotifier {
     String firstName,
     String lastName,
     File image,
-    String gender,
+    Gender gender,
     String email,
     String password,
     String description,
@@ -44,6 +46,7 @@ class Auth with ChangeNotifier {
         facebookAccount,
         linkedinAccount,
       );
+      print(responseData);
       notifyListeners();
     } catch (error) {
       throw error;
@@ -83,7 +86,7 @@ class Auth with ChangeNotifier {
       return false;
     }
     final userData =
-        json.decode(prefs.getString("userData")!) as Map<String, Object>;
+        json.decode(prefs.getString("userData")!) as Map<String, dynamic>;
     _token = userData['token'] as String?;
     _userId = userData['userId'] as String?;
     notifyListeners();

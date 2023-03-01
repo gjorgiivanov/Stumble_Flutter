@@ -160,16 +160,16 @@ class _AuthFormState extends State<AuthForm> {
                     decoration: const InputDecoration(labelText: 'Password'),
                     obscureText: true,
                     controller: _passwordController,
-                    validator: (value) {
-                      if (value == null ||
-                          value!.isEmpty ||
-                          !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-                              .hasMatch(value!)) {
-                        return ("Your password should contain at least:\n"
-                            " one upper case\n one lower case\n one digit\n one special character\n 8 characters in length");
-                      }
-                      return null;
-                    },
+                    // validator: (value) {
+                    //   if (value == null ||
+                    //       value!.isEmpty ||
+                    //       !RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                    //           .hasMatch(value!)) {
+                    //     return ("Your password should contain at least:\n"
+                    //         " one upper case\n one lower case\n one digit\n one special character\n 8 characters in length");
+                    //   }
+                    //   return null;
+                    // },
                     onSaved: (value) {
                       _userPassword = value!;
                     },
