@@ -2,9 +2,10 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 class NewMessage extends StatefulWidget {
-  const NewMessage({Key? key}) : super(key: key);
+  final String email1;
+  final String email2;
+  const NewMessage({Key? key, required this.email1, required this.email2}) : super(key: key);
 
   @override
   State<NewMessage> createState() => _NewMessageState();
@@ -17,11 +18,11 @@ class _NewMessageState extends State<NewMessage> {
   void _sendMessage() {
     FocusScope.of(context).unfocus();
     FirebaseFirestore.instance
-        .collection('chats/so5264bjiTtfTbdT1TMr/messages')
+        .collection('/chats/aba821e9b61062eebbb25beceb8b33394fae6993351ed48240a48f277b680e16/messages')
         .add({
       'text': _enteredMessage,
       'createdAt': Timestamp.now(),
-      'userId': (5 + Random().nextInt(2)),
+      'userEmail': (widget.email1),
       //send a message from a random user with id of 5 or 6
     });
     _enteredMessage = '';

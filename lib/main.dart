@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:stumble/screens/chat_list_screen.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:stumble/providers/auth.dart';
@@ -17,7 +18,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +64,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+  const MyHomePage({Key? key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -112,6 +113,8 @@ class _MyHomePageState extends State<MyHomePage> {
               getCurrentPosition(context).then((position) => setState(() {
                 _currentPosition = position;
               }));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ChatListScreen()));
             },
             child: Text("Lat: ${_currentPosition?.latitude.toString() ?? ''} "
                 "Lon: ${_currentPosition?.longitude.toString() ?? ''}"),

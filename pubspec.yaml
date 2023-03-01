@@ -22,6 +22,7 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.18.2 <3.0.0"
 
+
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
 # consider running `flutter pub upgrade --major-versions`. Alternatively,
@@ -45,6 +46,7 @@ dependencies:
   geolocator: ^9.0.2
   geocoding: ^2.0.5
   shared_preferences: ^2.0.18
+  crypto: ^3.0.2
 
 dev_dependencies:
   flutter_test:

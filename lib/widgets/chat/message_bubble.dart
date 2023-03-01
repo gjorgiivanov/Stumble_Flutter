@@ -77,7 +77,7 @@ class MessageBubble extends StatelessWidget {
           left: isMe ? null : 130,
           right: isMe ? 130 : null,
           child: CircleAvatar(
-            backgroundImage: NetworkImage(user.image),
+            backgroundImage: NetworkImage("https://hips.hearstapps.com/hmg-prod/images/gettyimages-517322650.jpg"),
             radius: 22,
           ),
         ),
