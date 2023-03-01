@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:stumble/screens/chat_list_screen.dart';
 import 'package:stumble/screens/auth_screen.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:stumble/screens/chat_screen.dart';
@@ -50,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
       foregroundColor: Theme.of(context).colorScheme.onPrimary,
     );
     return Scaffold(
+
       appBar: AppBar(
         title: const Text('Stumble Home Page'),
         actions: <Widget>[
@@ -57,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
             style: style,
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ChatScreen()));
+                  MaterialPageRoute(builder: (context) => ChatListScreen()));
             },
             child: const Text('Chat'),
           )

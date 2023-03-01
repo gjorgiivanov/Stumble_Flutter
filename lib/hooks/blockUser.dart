@@ -1,8 +1,6 @@
-import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:stumble/models/UserDetails.dart';
 
 void blockUser(String email, String token) async {
   await http.post(
