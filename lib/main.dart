@@ -125,8 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               );
             },
-            child: Text("Lat: ${_currentPosition?.latitude.toString() ?? ''} "
-                "Lon: ${_currentPosition?.longitude.toString() ?? ''}"),
+            child: Text(_currentPosition != null ? "Lat: ${_currentPosition?.latitude.toString()} Lon: ${_currentPosition?.longitude.toString()}" : "Locate Me")
           ),
           const Text(
             'List of people nearby',

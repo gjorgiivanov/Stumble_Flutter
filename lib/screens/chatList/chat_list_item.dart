@@ -46,27 +46,69 @@ class _ChatListItemState extends State<ChatListItem> {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return GestureDetector(
       onTap: tapHandler,
-      leading: CircleAvatar(
-        backgroundImage: NetworkImage(widget.user.image),
-      ),
-      title: Row(
-        children: [
-          Text('${widget.user.firstName} ${widget.user.lastName}'),
-            IconButton(
-              icon: const Icon(Icons.block),
-              onPressed: () => _showBlockConfirmationDialog(widget.user.email),
-              iconSize: 15,
-              padding: const EdgeInsets.all(0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              blurRadius: 10,
+              offset: const Offset(0, 3),
             ),
-        ],
-      ),
-      subtitle: Text(widget.user.email),
-      trailing: IconButton(
-        onPressed: tapHandler,
-        icon: const Icon(Icons.send),
+          ],
+        ),
+        child: Container(
+          margin: EdgeInsets.all(10),
+          child: Row(
+            children: [
+              CircleAvatar(
+                backgroundImage: NetworkImage(widget.user.image),
+                radius: 24,
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${widget.user.firstName} ${widget.user.lastName}',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      widget.user.email,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[500],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.block),
+                onPressed: () => _showBlockConfirmationDialog(widget.user.email),
+                iconSize: 20,
+                padding: const EdgeInsets.all(0),
+                color: Colors.grey[700],
+              ),
+              IconButton(
+                onPressed: tapHandler,
+                icon: const Icon(Icons.send),
+                color: Colors.blue[800],
+              ),
+              const SizedBox(width: 16),
+            ],
+          ),
+        ),
       ),
     );
   }
+
 }

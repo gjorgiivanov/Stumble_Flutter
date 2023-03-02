@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/User.dart';
+import '../../providers/auth.dart';
 import '../../screens/chatList/chat_item.dart';
 
 class MessageBubble extends StatelessWidget {
@@ -78,7 +80,7 @@ class MessageBubble extends StatelessWidget {
           left: isMe ? null : 130,
           right: isMe ? 130 : null,
           child: CircleAvatar(
-            backgroundImage: NetworkImage("https://hips.hearstapps.com/hmg-prod/images/gettyimages-517322650.jpg"),
+            backgroundImage: NetworkImage(isMe ? Provider.of<Auth>(context, listen: true).image ?? "" : user.image),
             radius: 22,
           ),
         ),

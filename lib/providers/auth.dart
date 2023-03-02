@@ -12,6 +12,12 @@ import '../data/constants.dart';
 class Auth with ChangeNotifier {
   String? _token;
   String? _userId;
+  String? _image;
+
+
+  String? get image {
+    return _image;
+  }
 
   bool get isAuth {
     return token != null;
@@ -64,11 +70,13 @@ class Auth with ChangeNotifier {
       _token = responseData.accessToken;
       UserDetails userDetails = responseData.userDetails;
       _userId = userDetails.email;
+      _image = userDetails.image;
       notifyListeners();
       final prefs = await SharedPreferences.getInstance();
       final userData = json.encode({
         'token': _token,
         'userId': _userId,
+        'image' : userDetails.image
       });
       prefs.setString('userData', userData);
     } catch (error) {
@@ -79,6 +87,7 @@ class Auth with ChangeNotifier {
   void logout() async {
     _token = null;
     _userId = null;
+    _image = null;
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
     prefs.clear();
