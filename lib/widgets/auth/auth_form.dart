@@ -185,21 +185,31 @@ class _AuthFormState extends State<AuthForm> {
                         }
                       },
                     ),
-                  if (!_isLogin) Text('Select an item:'),
                   if (!_isLogin)
-                    DropdownButtonFormField<Gender>(
-                      value: _selectedGender,
-                      onChanged: (newValue) {
-                        setState(() {
-                          _selectedGender = newValue!;
-                        });
-                      },
-                      items: Gender.values.map((Gender value) {
-                        return DropdownMenuItem<Gender>(
-                          value: value,
-                          child: Text(value.toString().split('.').last),
-                        );
-                      }).toList(),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.only(right: 16),
+                            child: Text('Select an item:')),
+                        Expanded(
+                          child: DropdownButtonFormField<Gender>(
+                            value: _selectedGender,
+                            onChanged: (newValue) {
+                              setState(() {
+                                _selectedGender = newValue!;
+                              });
+                            },
+                            items: Gender.values.map((Gender value) {
+                              return DropdownMenuItem<Gender>(
+                                value: value,
+                                child: Text(value.toString().split('.').last),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ],
                     ),
                   const SizedBox(
                     height: 12,

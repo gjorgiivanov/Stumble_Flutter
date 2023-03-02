@@ -1,10 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:stumble/models/User.dart';
+import 'package:provider/provider.dart';
+import 'package:stumble/providers/auth.dart';
+
+import '../../data/constants.dart';
+import '../../providers/users.dart';
 
 class UserList extends StatefulWidget {
-  final List<User> users;
-
-  UserList({required this.users});
+  const UserList({super.key});
 
   @override
   _UserListState createState() => _UserListState();
@@ -13,23 +16,40 @@ class UserList extends StatefulWidget {
 class _UserListState extends State<UserList> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: widget.users.map((user) {
-        return Card(
-          child: ListTile(
-            leading: CircleAvatar(
-              child: Text(user.firstName[0]),
+    final usersData = Provider.of<Users>(context).items;
+
+    return ListView.builder(
+      itemCount: usersData.length,
+      itemBuilder: (BuildContext context, int index) {
+        final user = usersData[index];
+        return ListTile(
+          leading: CircleAvatar(
+            radius: 30,
+            backgroundImage: CachedNetworkImageProvider(
+              (imageURL + user.image),
+              headers: {
+                "Authorization": Provider.of<Auth>(context).token!,
+                "Access-Control-Allow-Headers":
+                    "Access-Control-Allow-Origin, Accept"
+              },
             ),
-            title: Text(user.firstName + ' ' + user.lastName),
-            subtitle: Row(
-              children: [Icon(Icons.info), Icon(Icons.block), Icon(Icons.chat)],
+            child: Text(
+              user.firstName,
             ),
-            onTap: () {
-              // navigate to user details page
-            },
           ),
+          title: Text('${user.firstName} ${user.lastName}'),
+          subtitle: Row(
+            children: const [
+              Icon(Icons.info),
+              Icon(Icons.block),
+              Icon(Icons.chat)
+            ],
+          ),
+          onTap: () {
+            // navigate to user details page
+          },
         );
-      }).toList(),
+      },
     );
   }
 }

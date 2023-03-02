@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -6,6 +8,7 @@ import 'package:stumble/providers/auth.dart';
 import 'package:stumble/providers/users.dart';
 import 'package:stumble/screens/auth_screen.dart';
 import 'package:stumble/screens/chat_list_screen.dart';
+import 'package:stumble/screens/nearby_users_list_screen.dart';
 import 'package:stumble/screens/splash_screen.dart';
 
 import 'services/locationService.dart';
@@ -13,25 +16,32 @@ import 'services/locationService.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  Position position = await Geolocator.getCurrentPosition(
+    desiredAccuracy: LocationAccuracy.high,
+  );
+  runApp(MyApp(position));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key});
+  Position position;
+
+  MyApp(this.position, {Key? key});
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = ThemeData();
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
           value: Auth(),
         ),
         ChangeNotifierProxyProvider<Auth, Users>(
-          create: (_) => Users(null),
-          update: (ctx, auth, pev) => Users(
+          create: (_) =>
+              Users(null, position.latitude, position.longitude, null),
+          update: (ctx, auth, prev) => Users(
             auth.token,
+            position.latitude,
+            position.longitude,
+            prev == null ? [] : prev.items,
           ),
         ),
       ],
@@ -118,7 +128,10 @@ class _MyHomePageState extends State<MyHomePage> {
             'List of people nearby',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-          )
+          ),
+          const Expanded(
+            child: UsersListScreen(),
+          ),
         ],
       ),
     );
