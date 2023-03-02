@@ -23,3 +23,5 @@ enum Gender {
   FEMALE,
   OTHER,
 }
+
+const String imageURL = 'https://stumble-api.herokuapp.com/images/';

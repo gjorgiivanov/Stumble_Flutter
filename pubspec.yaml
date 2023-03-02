@@ -47,6 +47,7 @@ dependencies:
   geocoding: ^2.0.5
   shared_preferences: ^2.0.18
   crypto: ^3.0.2
+  cached_network_image: ^3.0.0-nullsafety
 
 dev_dependencies:
   flutter_test:
