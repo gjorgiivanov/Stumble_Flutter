@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
 
 import '../data/constants.dart';
@@ -37,6 +39,14 @@ class _AuthScreenState extends State<AuthScreen> {
         );
       } else {
         if (image != null && gender != null) {
+          final ref = FirebaseStorage.instance
+              .ref()
+              .child("user_images")
+              .child(email + path.extension(image.path));
+          await ref.putFile(image);
+
+          var imageUrl = await ref.getDownloadURL();
+
           await Provider.of<Auth>(context, listen: false).register(
             firstName,
             lastName,

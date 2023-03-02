@@ -52,6 +52,7 @@ class _MessagesState extends State<Messages> {
       data = email2 + email1;
     }
     var bytes = utf8.encode(data);
+    utf8.decode(bytes);
     String hash = sha256.convert(bytes).toString();
     return hash;
   }

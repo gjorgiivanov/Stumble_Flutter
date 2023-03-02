@@ -1,9 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:stumble/providers/auth.dart';
 
-import '../../data/constants.dart';
 import '../../providers/users.dart';
 
 class UserList extends StatefulWidget {
@@ -14,6 +13,18 @@ class UserList extends StatefulWidget {
 }
 
 class _UserListState extends State<UserList> {
+  final ref = FirebaseStorage.instance.ref().child("user_images");
+
+  Future<ImageProvider?> _getImageUrl(String email) async {
+    var img = ref.child(email + '.jpg');
+
+    if (img.isBlank != null && !img.isBlank!) {
+      var downloadUrl = await img.getDownloadURL();
+      return NetworkImage(downloadUrl);
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     final usersData = Provider.of<Users>(context).items;
@@ -23,19 +34,17 @@ class _UserListState extends State<UserList> {
       itemBuilder: (BuildContext context, int index) {
         final user = usersData[index];
         return ListTile(
-          leading: CircleAvatar(
-            radius: 30,
-            backgroundImage: CachedNetworkImageProvider(
-              (imageURL + user.image),
-              headers: {
-                "Authorization": Provider.of<Auth>(context).token!,
-                "Access-Control-Allow-Headers":
-                    "Access-Control-Allow-Origin, Accept"
-              },
-            ),
-            child: Text(
-              user.firstName,
-            ),
+          leading: FutureBuilder(
+            future: _getImageUrl(user.email),
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              return CircleAvatar(
+                radius: 30,
+                backgroundImage: snapshot.data,
+                child: Text(
+                  user.firstName,
+                ),
+              );
+            },
           ),
           title: Text('${user.firstName} ${user.lastName}'),
           subtitle: Row(
