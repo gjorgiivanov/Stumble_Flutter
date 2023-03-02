@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/User.dart';
+import '../../screens/chatList/chat_item.dart';
 
 class MessageBubble extends StatelessWidget {
   final Key key;

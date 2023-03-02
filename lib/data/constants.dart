@@ -2,8 +2,8 @@ import '../models/User.dart';
 
 final me = User(
     id: 5,
-    firstName: "David",
-    lastName: "Jones",
+    firstName: "Me",
+    lastName: "",
     image: "https://stumble-api.herokuapp.com/images/image5.jpeg",
     lat: 10,
     lon: 10,

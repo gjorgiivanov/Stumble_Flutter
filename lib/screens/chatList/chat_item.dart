@@ -10,4 +10,6 @@ class ChatItem {
     required this.email,
     required this.imageUrl,
   });
+
+
 }

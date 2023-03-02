@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:stumble/screens/chat_screen.dart';
 
+import '../../models/User.dart';
+import '../../providers/auth.dart';
 import 'chat_item.dart';
 
 class ChatListItem extends StatefulWidget {
-  final ChatItem item;
+  final User user;
 
-  const ChatListItem({required this.item});
+  const ChatListItem(this.user, {super.key});
 
   @override
   _ChatListItemState createState() => _ChatListItemState();
@@ -20,16 +23,16 @@ class _ChatListItemState extends State<ChatListItem> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Are you sure you want to block this user?'),
+          title: const Text('Are you sure you want to block this user?'),
           actions: <Widget>[
             TextButton(
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text('Block'),
+              child: const Text('Block'),
               onPressed: () {
                 // Perform block user action
                 setState(() {
@@ -46,36 +49,36 @@ class _ChatListItemState extends State<ChatListItem> {
 
   @override
   Widget build(BuildContext context) {
+
     return ListTile(
       leading: CircleAvatar(
-        backgroundImage: NetworkImage(widget.item.imageUrl),
+        backgroundImage: NetworkImage(widget.user.image),
       ),
       title: Row(
         children: [
-          Text('${widget.item.name} ${widget.item.surname}'),
+          Text('${widget.user.firstName} ${widget.user.lastName}'),
           if (!_isBlocked)
             IconButton(
-              icon: Icon(Icons.block),
+              icon: const Icon(Icons.block),
               onPressed: _showBlockConfirmationDialog,
               iconSize: 15,
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
             ),
         ],
       ),
-      subtitle: Text(widget.item.email),
+      subtitle: Text(widget.user.email),
       trailing: IconButton(
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const ChatScreen(
-                email1: "tom@gmail.com",
-                email2: "tom2@gmail.com",
+              builder: (context) => ChatScreen(
+                widget.user
               ),
             ),
           );
         },
-        icon: Icon(Icons.send),
+        icon: const Icon(Icons.send),
       ),
     );
   }

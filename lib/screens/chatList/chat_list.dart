@@ -1,13 +1,14 @@
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../models/User.dart';
+import '../../providers/users.dart';
 import 'chat_item.dart';
 import 'chat_list_item.dart';
 
 class ChatList extends StatefulWidget {
-  final List<ChatItem> items;
-
-  ChatList({required this.items});
+  const ChatList({super.key});
 
   @override
   _ChatListState createState() => _ChatListState();
@@ -16,12 +17,14 @@ class ChatList extends StatefulWidget {
 class _ChatListState extends State<ChatList> {
   @override
   Widget build(BuildContext context) {
+    List<User> users = Provider.of<Users>(context, listen:false).items;
+
     return ListView.builder(
-      itemCount: widget.items.length,
+      itemCount: users.length,
       itemBuilder: (BuildContext context, int index) {
-        final item = widget.items[index];
+        final user = users[index];
         return ChatListItem(
-          item: item,
+          user,
         );
       },
     );
