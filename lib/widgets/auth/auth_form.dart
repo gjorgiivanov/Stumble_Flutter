@@ -187,26 +187,36 @@ class _AuthFormState extends State<AuthForm> {
                     ),
                   if (!_isLogin)
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                            padding: EdgeInsets.only(right: 16),
-                            child: Text('Select an item:')),
+                          padding: EdgeInsets.only(right: 16),
+                          child: Center(
+                            child: Text(
+                              'Select a gender:',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.grey[700],
+                              ),
+                            ),
+                          ),
+                        ),
                         Expanded(
-                          child: DropdownButtonFormField<Gender>(
-                            value: _selectedGender,
-                            onChanged: (newValue) {
-                              setState(() {
-                                _selectedGender = newValue!;
-                              });
-                            },
-                            items: Gender.values.map((Gender value) {
-                              return DropdownMenuItem<Gender>(
-                                value: value,
-                                child: Text(value.toString().split('.').last),
-                              );
-                            }).toList(),
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: DropdownButtonFormField<Gender>(
+                              value: _selectedGender,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  _selectedGender = newValue!;
+                                });
+                              },
+                              items: Gender.values.map((Gender value) {
+                                return DropdownMenuItem<Gender>(
+                                  value: value,
+                                  child: Text(value.toString().split('.').last),
+                                );
+                              }).toList(),
+                            ),
                           ),
                         ),
                       ],
