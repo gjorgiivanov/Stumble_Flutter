@@ -46,7 +46,11 @@ class Users with ChangeNotifier {
     await addConversation(email, authToken!);
   }
 
-  Future<void> getNearbyUsers() async {
+  Future<void> getNearbyUsers({double? lat = 0, double? lon = 0}) async {
+    if(lat != null && lon != null){
+      this.lat = lat;
+      this.lon = lon;
+    }
     try {
       final List<User> loadedUsers =
           await fetchNearbyUsers(lat!, lon!, authToken!);
@@ -61,6 +65,7 @@ class Users with ChangeNotifier {
   Future<void> setBlockUser(String email) async {
     try {
       await blockUser(email, authToken!);
+      _users?.removeWhere((element) => element.email == email);
       notifyListeners();
     } catch (error) {
       throw (error);

@@ -119,6 +119,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 (position) => setState(
                   () {
                     _currentPosition = position;
+                    Provider.of<Users>(context, listen:false)
+                        .getNearbyUsers(lat: position.latitude, lon: position.longitude);
                   },
                 ),
               );

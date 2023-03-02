@@ -1,5 +1,7 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stumble/screens/chat_screen.dart';
 
 import '../../providers/users.dart';
 
@@ -13,7 +15,7 @@ class UserList extends StatefulWidget {
 class _UserListState extends State<UserList> {
   @override
   Widget build(BuildContext context) {
-    final usersData = Provider.of<Users>(context).items;
+    final usersData = Provider.of<Users>(context, listen: true).items;
 
     return ListView.builder(
       itemCount: usersData.length,
@@ -29,10 +31,27 @@ class _UserListState extends State<UserList> {
           ),
           title: Text('${user.firstName} ${user.lastName}'),
           subtitle: Row(
-            children: const [
+            children: [
               Icon(Icons.info),
-              Icon(Icons.block),
-              Icon(Icons.chat)
+              GestureDetector(
+                child: Icon(Icons.block),
+                onTap: () {
+                  Provider.of<Users>(context, listen: false)
+                      .setBlockUser(user.email);
+                },
+              ),
+              GestureDetector(
+                child: Icon(Icons.chat),
+                onTap: () {
+                  Provider.of<Users>(context, listen: false)
+                      .addUserConversation(user.email);
+                  Navigator.push(
+                    context,
+
+                    MaterialPageRoute(builder: (context) => ChatScreen(user)),
+                  );
+                },
+              ),
             ],
           ),
           onTap: () {
@@ -43,3 +62,5 @@ class _UserListState extends State<UserList> {
     );
   }
 }
+
+

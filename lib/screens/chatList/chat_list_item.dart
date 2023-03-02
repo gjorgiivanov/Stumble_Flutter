@@ -4,6 +4,8 @@ import 'package:stumble/screens/chat_screen.dart';
 
 import '../../models/User.dart';
 import '../../providers/auth.dart';
+import '../../providers/users.dart';
+import '../../widgets/BlockConfirmationDialog.dart';
 import 'chat_item.dart';
 
 class ChatListItem extends StatefulWidget {
@@ -16,51 +18,45 @@ class ChatListItem extends StatefulWidget {
 }
 
 class _ChatListItemState extends State<ChatListItem> {
-  bool _isBlocked = false;
 
-  void _showBlockConfirmationDialog() {
+  void _showBlockConfirmationDialog(String email) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Are you sure you want to block this user?'),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Cancel'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: const Text('Block'),
-              onPressed: () {
-                // Perform block user action
-                setState(() {
-                  _isBlocked = true;
-                });
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+        return BlockConfirmationDialog(
+          onBlockUser: () {
+            Provider.of<Users>(context, listen: false).setBlockUser(email);
+            Navigator.of(context).pop();
+          },
         );
       },
     );
   }
 
+  void tapHandler(){
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ChatScreen(
+            widget.user
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return ListTile(
+      onTap: tapHandler,
       leading: CircleAvatar(
         backgroundImage: NetworkImage(widget.user.image),
       ),
       title: Row(
         children: [
           Text('${widget.user.firstName} ${widget.user.lastName}'),
-          if (!_isBlocked)
             IconButton(
               icon: const Icon(Icons.block),
-              onPressed: _showBlockConfirmationDialog,
+              onPressed: () => _showBlockConfirmationDialog(widget.user.email),
               iconSize: 15,
               padding: const EdgeInsets.all(0),
             ),
@@ -68,16 +64,7 @@ class _ChatListItemState extends State<ChatListItem> {
       ),
       subtitle: Text(widget.user.email),
       trailing: IconButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ChatScreen(
-                widget.user
-              ),
-            ),
-          );
-        },
+        onPressed: tapHandler,
         icon: const Icon(Icons.send),
       ),
     );
