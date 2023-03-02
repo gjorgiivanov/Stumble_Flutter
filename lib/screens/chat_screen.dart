@@ -1,23 +1,43 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:stumble/widgets/chat/messages.dart';
 import 'package:stumble/widgets/chat/new_message.dart';
 
-class ChatScreen extends StatelessWidget {
-  final String email1;
-  final String email2;
+import '../models/User.dart';
+import '../providers/auth.dart';
 
-  const ChatScreen({Key? key, required this.email1, required this.email2}) : super(key: key);
+class ChatScreen extends StatelessWidget {
+  final User user;
+
+  const ChatScreen(this.user);
+
+  String generateKey(String email1, String email2) {
+    String data;
+    if (email1.compareTo(email2) > 0) {
+      data = email1 + email2;
+    } else {
+      data = email2 + email1;
+    }
+    var bytes = utf8.encode(data);
+    String hash = sha256.convert(bytes).toString();
+    return hash;
+  }
 
   @override
   Widget build(BuildContext context) {
+    String sender = Provider.of<Auth>(context, listen:false).userId!;
+    String chatId = generateKey(sender, user.email);
     return Scaffold(
       body: Container(
         child: Column(
           children: [
             Expanded(
-              child: Messages(email1: email1, email2: email2),
+              child: Messages(chatId, sender, user),
             ),
-            NewMessage(email1: this.email1, email2: this.email2),
+            NewMessage(generateKey(sender, user.email), sender),
           ],
         ),
       ),

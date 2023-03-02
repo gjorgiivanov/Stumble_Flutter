@@ -3,31 +3,31 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
+import 'package:stumble/screens/chatList/chat_item.dart';
 import 'package:stumble/widgets/chat/message_bubble.dart';
 
 import '../../data/constants.dart';
+import '../../models/User.dart';
 
 class Messages extends StatefulWidget {
-  final String email1;
-  final String email2;
+  final String chatId;
+  final String sender;
+  final User user;
 
-  const Messages({Key? key, required this.email1, required this.email2})
-      : super(key: key);
+  const Messages(this.chatId, this.sender, this.user, {super.key});
 
   @override
   _MessagesState createState() => _MessagesState();
 }
 
 class _MessagesState extends State<Messages> {
-  late String chatId;
   late CollectionReference messagesCollectionRef;
 
   @override
   void initState() {
     super.initState();
-    chatId = generateKey(widget.email1, widget.email2);
     messagesCollectionRef =
-        FirebaseFirestore.instance.collection('chats/$chatId/messages');
+        FirebaseFirestore.instance.collection('chats/${widget.chatId}/messages');
     checkOrCreateCollection();
   }
 
@@ -39,29 +39,16 @@ class _MessagesState extends State<Messages> {
     } catch (error) {
       await FirebaseFirestore.instance
           .collection('chats')
-          .doc(chatId)
+          .doc(widget.chatId)
           .set({'created_at': DateTime.now()});
     }
-  }
-
-  static String generateKey(String email1, String email2) {
-    String data;
-    if (email1.compareTo(email2) > 0) {
-      data = email1 + email2;
-    } else {
-      data = email2 + email1;
-    }
-    var bytes = utf8.encode(data);
-    utf8.decode(bytes);
-    String hash = sha256.convert(bytes).toString();
-    return hash;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${other.firstName} ${other.lastName}"),
+        title: Text("${widget.user.firstName} ${widget.user.lastName}"),
         leading: const BackButton(
           color: Colors.white,
         ),
@@ -85,9 +72,10 @@ class _MessagesState extends State<Messages> {
                     padding: const EdgeInsets.all(8),
                     child: MessageBubble(
                       user:
-                          documents![index]['userEmail'] == me.id ? me : other,
+                          documents![index]['userEmail'] == widget.sender ?
+                          me : widget.user,
                       message: documents![index]['text'],
-                      isMe: documents![index]['userEmail'] == widget.email1,
+                      isMe: documents![index]['userEmail'] == widget.sender,
                       key: ValueKey(documents![index].reference.id),
                     ),
                   ));

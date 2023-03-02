@@ -17,6 +17,10 @@ class Auth with ChangeNotifier {
     return token != null;
   }
 
+  String? get userId {
+    return _userId;
+  }
+
   String? get token {
     return _token;
   }
@@ -24,7 +28,7 @@ class Auth with ChangeNotifier {
   Future<void> register(
     String firstName,
     String lastName,
-    File image,
+    String image,
     Gender gender,
     String email,
     String password,
