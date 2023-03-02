@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,8 +15,16 @@ class ChatList extends StatefulWidget {
 
 class _ChatListState extends State<ChatList> {
   @override
+  void didChangeDependencies() {
+    if (mounted) {
+      Provider.of<Users>(context, listen: false).getUserConversations();
+    }
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    List<User> users = Provider.of<Users>(context, listen:false).items;
+    List<User> users = Provider.of<Users>(context, listen: true).userConversations!;
 
     return ListView.builder(
       itemCount: users.length,

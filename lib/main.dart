@@ -36,12 +36,13 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProxyProvider<Auth, Users>(
           create: (_) =>
-              Users(null, position.latitude, position.longitude, null),
+              Users(null, position.latitude, position.longitude, null, null),
           update: (ctx, auth, prev) => Users(
             auth.token,
             position.latitude,
             position.longitude,
             prev == null ? [] : prev.items,
+            prev == null ? [] : prev.userConversations
           ),
         ),
       ],
@@ -88,6 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
               TextButton.icon(
                 style: style,
                 onPressed: () {
+                  Provider.of<Users>(context, listen: false).getUserConversations();
                   Navigator.push(
                       context,
                       MaterialPageRoute(

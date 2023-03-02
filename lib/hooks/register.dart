@@ -7,7 +7,7 @@ import '../data/constants.dart';
 Future<http.StreamedResponse> register(
     String firstName,
     String lastName,
-    File image,
+    String image,
     Gender gender,
     String email,
     String password,
@@ -28,18 +28,7 @@ Future<http.StreamedResponse> register(
   request.fields['instagramAccount'] = instagramAccount;
   request.fields['facebookAccount'] = facebookAccount;
   request.fields['linkedinAccount'] = linkedinAccount;
-
-  if (image != null) {
-    final stream = http.ByteStream(image.openRead());
-    final length = await image.length();
-    final multipartFile = http.MultipartFile(
-      'image',
-      stream,
-      length,
-      filename: image.path.split('/').last,
-    );
-    request.files.add(multipartFile);
-  }
+  request.fields['image'] = image;
 
   return await request.send();
 }

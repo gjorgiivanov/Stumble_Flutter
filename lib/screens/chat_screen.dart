@@ -8,7 +8,6 @@ import 'package:stumble/widgets/chat/new_message.dart';
 
 import '../models/User.dart';
 import '../providers/auth.dart';
-import 'chatList/chat_item.dart';
 
 class ChatScreen extends StatelessWidget {
   final User user;
