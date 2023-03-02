@@ -24,7 +24,7 @@ class _AuthScreenState extends State<AuthScreen> {
     String password,
     String firstName,
     String lastName,
-    String image,
+    File? image,
     Gender? gender,
     bool isLogin,
   ) async {
@@ -50,7 +50,7 @@ class _AuthScreenState extends State<AuthScreen> {
           await Provider.of<Auth>(context, listen: false).register(
             firstName,
             lastName,
-            image!,
+            imageUrl,
             gender,
             email,
             password,
