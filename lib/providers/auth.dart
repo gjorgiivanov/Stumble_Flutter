@@ -28,7 +28,7 @@ class Auth with ChangeNotifier {
   Future<void> register(
     String firstName,
     String lastName,
-    File image,
+    String image,
     Gender gender,
     String email,
     String password,

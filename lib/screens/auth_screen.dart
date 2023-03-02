@@ -22,7 +22,7 @@ class _AuthScreenState extends State<AuthScreen> {
     String password,
     String firstName,
     String lastName,
-    File? image,
+    String image,
     Gender? gender,
     bool isLogin,
   ) async {
